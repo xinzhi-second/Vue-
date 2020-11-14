@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>按键修饰符</title>
+    </head>
+    <body>
+    
+        <div id="app">
+            <form>
+                <div>
+                    用户名：
+                    <!-- 按delete键清空所有内容 -->
+                    <input type="text" v-on:keyup.delete="deleted" v-model="uname">
+                </div>
+                <div>
+                    <!-- 回车密码提交 -->
+                    密码
+                    <input type="password" v-on:keyup.enter="subimt"  v-model="pwd">
+                </div>
+                <div>
+                    <input type="button" value="提交" v-on:click="subimt">
+                </div>
+            </form>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               uname: '',
+               pwd: ''
+           },
+           methods: {
+               subimt: function(){
+                    console.log(this.uname, this.pwd);
+               },
+               deleted: function(){
+                    this.uname = '';
+               }
+           }
+       });
+    </script>
+</html>

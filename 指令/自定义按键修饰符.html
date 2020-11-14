@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>自定义按键修饰符</title>
+    </head>
+    <body>
+    
+        <div id="app">
+           <input type="text" v-on:keyup.aa="handle" v-model="info">
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+    //全局定义按键修饰符
+    Vue.config.keyCodes.aa = 65;
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               info: ''
+           },
+           methods: {
+                handle: function(event){
+                    // 打印按键的数值 例：按[a]打印65
+                    console.log(event.keyCode);
+               }
+           }
+       });
+    </script>
+</html>

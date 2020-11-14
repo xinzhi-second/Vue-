@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>数据绑定指令</title>
+    </head>
+    <body>
+        
+        <div id="app">
+            <div>{{msg}}</div>
+            <div v-text="msg"></div>
+            <div v-html="msg_html"></div>
+            <div v-pre>{{msg}}</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               msg: 'Hello World!',
+               msg_html: '<h1>Hello World!</h1>'
+           }
+       });
+    </script>
+</html>

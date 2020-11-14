@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>事件绑定</title>
+    </head>
+    <body>
+        
+        <div id="app">
+            <div>{{num}}</div>
+            <div @click="handle0">
+                <button v-on:click="handle">点击</button>
+                <!-- 阻止冒泡行为 -->
+                <button v-on:click.stop="handle">点击1</button>
+            </div>
+            <a @click="handle" href="https://www.baidu.com/">点击2</a>
+            <!-- 阻止默认行为 -->
+            <a @click.prevent="handle" href="https://www.baidu.com/">点击3</a>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               num: 0
+           },
+           methods: {
+               handle: function(event){
+                   // this 表示当前Vue实例
+                   this.num++;
+                   // 手动阻止冒泡
+                //    event.stopPropagation();
+                   // 手动阻止默认行为
+                // event.preventDefault();
+               },
+               handle0: function(){
+                   this.num++;
+               }
+           }
+       });
+    </script>
+</html>
