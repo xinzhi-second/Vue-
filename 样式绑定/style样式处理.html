@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>style样式绑定</title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 对象绑定 -->
+            <div v-bind:style="{border: borderStyle, width: widthStyle, height: heightStyle}"></div>
+            <button v-on:click="handle">切换</button>
+            <!-- 简写 -->
+            <div v-bind:style="objStyles" ></div>
+            <!-- 数组用法 -->
+            <div v-bind:style="[objStyles, textStyles]">数组用法</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+       var vm = new Vue({
+           el: '#app',
+           data: {
+                borderStyle: '1px solid #000000',
+                widthStyle: '100px',
+                heightStyle: '100px',
+                objStyles: {
+                    border: '1px solid red',
+                    width: '100px',
+                    height: '100px'
+                },
+                textStyles: {
+                    color: 'blue',
+                    fontsize: '28px'
+                }
+           },
+           methods: {
+               handle: function(){
+                   this.heightStyle = '50px';
+                   this.objStyles.height = '50px';
+               }
+           }
+       });
+    </script>
+</html>

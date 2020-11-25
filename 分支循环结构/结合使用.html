@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>结合使用</title>
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div v-for="(value, key, index) in obj">{{value + '---' + key + '---' + index}}</div>
+            
+            <!-- 结合使用 -->
+            <div v-if="value == 10" v-for="(value, key, index) in obj">{{value + '---' + key + '---' + index}}</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        //分支结构
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               obj: {
+                   name: '张三',
+                   age: 10
+               }
+           }
+       });
+    </script>
+</html>

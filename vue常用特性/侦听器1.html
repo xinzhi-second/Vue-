@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>侦听器1</title>
+    </head>
+    <body>
+        <div id="app">
+            名: <input type="text" v-model="ming"/>
+            姓：<input type="text" v-model="xing"/>
+            <div>{{fullName}}</div>
+            <div>{{fullName_}}</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                xing: '王',
+                ming: '五',
+                fullName: '王五'
+            },
+            computed: {
+                fullName_: function(){
+                    return this.xing + this.ming;
+                }
+            },
+            // 侦听器
+            watch: {
+                xing: function(val){
+                    this.fullName = val + this.ming;
+                },
+                ming: function(val){
+                    this.fullName = this.xing + val;
+                }
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>属性绑定</title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 属性绑定url链接 -->
+           <a v-bind:href="url">百度</a>
+           <!-- 属性绑定缩写 -->
+           <a :href="url">缩写百度</a>
+           <button v-on:click="handle">切换</button>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               url : 'http://www.baidu.com'
+           },
+           methods: {
+               handle: function(){
+                   this.url = 'https://cn.vuejs.org'
+               }
+           }
+       });
+    </script>
+</html>

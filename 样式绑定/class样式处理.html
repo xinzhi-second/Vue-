@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>class样式绑定</title>
+        <style>
+            .active {
+                border: 1px solid #000000;
+                width: 100px;
+                height: 100px;
+            }
+            .error {
+                background-color: red;
+            }
+            .test {
+                color: orange
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 对象样式绑定 -->
+            <div v-bind:class="{active: isActive, error: isError}"></div>
+            <button v-on:click="handle">切换</button>
+            <!-- 数组语法 -->
+            <div v-bind:class="[activeClass, errorClass]"></div>
+            <button v-on:click="handle1">切换</button>
+            <!-- 结合使用 -->
+            <div v-bind:class="[activeClass, errorClass, {test: isTest}]">结合使用</div>
+            <button v-on:click="handle2">切换</button>
+            <!-- 数组简化操作 -->
+            <div v-bind:class="arrClass">数组简化操作</div>
+            <!-- 对象简化操作 -->
+            <div v-bind:class="objectClass">对象简化操作</div>
+            <!-- 绑定的样式会叠加到默认的样式上 -->
+            <div class="test" v-bind:class="objectClass">默认样式</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+       var vm = new Vue({
+           el: '#app',
+           data: {
+               isActive: true,
+               isError: true,
+               activeClass: 'active',
+               errorClass: 'error',
+               isTest: false,
+               arrClass: [ 'active', 'error' ],
+               objectClass: {
+                   active: true
+               }
+           },
+           methods: {
+               handle: function(){
+                   this.isActive = !this.isActive;
+                   this.isError = !this.isError;
+               },
+               handle1: function(){
+                   this.errorClass = '';
+               },
+               handle2: function(){
+                   this.isTest = !this.isTest;
+               }
+           }
+       });
+    </script>
+</html>

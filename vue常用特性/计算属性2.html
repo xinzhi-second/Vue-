@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>计算属性2</title>
+    </head>
+    <body>
+        <div id="app">
+            <div>{{reverseMsg}}</div>
+            <div>{{reverseMsg}}</div>
+            <div>{{reverseMsgFun()}}</div>
+            <div>{{reverseMsgFun()}}</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello'
+            },
+            methods: {
+                reverseMsgFun: function(){
+                    console.log('reverseMsgFun')
+                    return this.msg.split('').reverse().join('');
+                }
+            },
+            computed: {
+                // 定义计算属性
+                reverseMsg: function(){
+                    console.log('reverseMsg')
+                    return this.msg.split('').reverse().join('');
+                }
+            }
+        });
+    </script>
+</html>

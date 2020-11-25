@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>计算属性</title>
+    </head>
+    <body>
+        <div id="app">
+            <div>{{msg}}</div>
+            <div>{{msg.split('').reverse().join('')}}</div>
+            <!-- 使用计算属性 -->
+            <div>{{reverseMsg}}</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello'
+            },
+            computed: {
+                // 定义计算属性
+                reverseMsg: function(){
+                    return this.msg.split('').reverse().join('');
+                }
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>侦听器实际应用场景</title>
+    </head>
+    <body>
+        <div id="app">
+           用户名<input type="text" v-model.lazy="name"/>
+           <div>{{tip}}</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        /**
+            侦听器
+            1、采用侦听器监听用户名变化
+            2、调用后台接口进行验证
+            3、根据验证的结果调整提示信息
+        */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                tip: ''
+            },
+            methods: {
+                checkName : function(name){
+                    setTimeout(()=>{
+                        if(name == 'admin'){
+                            this.tip = '用户名已存在';
+                        }else{
+                            this.tip = '用户名可以使用'
+                        }
+                    },1000);
+                }
+            },
+            // 侦听器
+            watch: {
+                name: function(val){
+                    // 验证用户合法性
+                    this.checkName(val);
+                    // 
+                    this.tip = '正在验证...';
+                }
+            }
+        });
+    </script>
+</html>
