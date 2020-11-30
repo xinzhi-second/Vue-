@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>修改响应式数据</title>
+    </head>
+    <body>
+        <div id="app">
+            <ul>
+                <li :key="index" v-for="(item,index) in list">{{item}}</li>
+            </ul>
+            <div>
+                <div v-text="info.name"></div>
+                <div>{{info.age}}</div>
+                <div>{{info.sex}}</div>
+            </div>
+        </div>
+        
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+    
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: ['apple','orange', 'banana'],
+                info: {
+                    name: '王五',
+                    age: 12
+                }
+            }
+        });
+        // 数组响应式修改
+        // 方法一
+        Vue.set(vm.list, 2, 'lemon');
+        // 方法二
+        vm.$set(vm.list, 1, 'lemon');
+
+        // 对象数据响应式
+        // 直接添加【可显示页面，但数据不是响应式】
+        // vm.info.sex = 'man';
+        // 通过vue方法修改，数据为响应式
+        vm.$set(vm.info, 'sex', 'man');
+    </script>
+</html>

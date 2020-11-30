@@ -5,20 +5,22 @@
     </head>
     <body>
         <div id="app">
-           <input type="text" v-model="msg"/>
-           <div>{{msg | upper}}</div>
-           <!-- 过滤器级联使用 -->
-           <div>{{msg | upper | lower}}</div>
-            <!-- 绑定属性时使用 -->
-            <div :abc="msg | upper">绑定属性</div>
+            <!-- 过滤器的使用 -->
+           <div>{{date | format('yyyy-MM-dd')}}</div>
         </div>
     </body>
     <script type="text/javascript" src="../js/vue.js"></script>
     <script type="text/javascript">
         // 定义过滤器
-        Vue.filter('upper',function(val){
-            // 业务逻辑
-            return val.charAt(0).toUpperCase() + val.slice(1);
+        Vue.filter('format',function(val, arg){
+            if(arg === 'yyyy-MM-dd'){
+                let ret = [];
+                ret.push(val.getFullYear());
+                ret.push(val.getMonth() + 1);
+                ret.push(val.getDate());
+                return ret.join('-')
+            }
+            return val;
         });
 
         Vue.filter('lower', function(val){
@@ -28,7 +30,7 @@
         var vm = new Vue({
             el: '#app',
             data: {
-                msg: 'hello',
+                date: new Date(),
             }
         });
     </script>
