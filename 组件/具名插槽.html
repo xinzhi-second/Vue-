@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>具名插槽</title>
+    </head>
+    <body>
+        <div id="app">
+            <div >{{msg}}</div>
+            <!-- 插槽使用 -->
+            <base-layout>
+                <p slot="header">标题信息</p>
+                <p >主要内容1</p>
+                <p >主要内容2</p>
+                <p slot="footer">底部信息</p>
+            </base-layout>
+            --------------------------------------
+            <base-layout>
+                <template slot="header">
+                    <p>标题信息1</p>
+                    <p>标题信息2</p>
+                </template>
+                <p >主要内容1</p>
+                <p >主要内容2</p>
+                <template slot="footer">
+                    <p>底部信息1</p>
+                    <p>底部信息2</p>
+                </template>
+            </base-layout>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">        
+
+        Vue.component('base-layout', {
+            template: `
+                <div>
+                    <header>
+                        <slot name='header'></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                    </main>
+                    <footer>
+                        <slot name='footer'></slot>
+                    </footer>
+                </div>
+            `
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '父组件'
+            }
+        });
+    </script>
+</html>

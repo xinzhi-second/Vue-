@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>组件数据交互</title>
+    </head>
+    <body>
+        <div id="app">
+            {{msg}}
+           <menu-item title="来自父组件的值"></menu-item>
+           <menu-item :title="ptitle" content="hello"></menu-item>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+        //
+        Vue.component('menu-item', {
+            props: ['title','content'],
+            data: function(){
+                return {
+                    msg: '子组件本身数据'
+                }
+            },
+            template: `
+                <div>
+                    <div>{{msg}}</div>
+                    <div>{{title}}</div>
+                    <div>{{content}}</div>
+                </div>
+            `,
+            methods: {
+                handle: function(){
+                    this.count++;
+                }
+            }
+        });
+
+        
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '父组件内容',
+                ptitle: '动态绑定属性'
+            }
+        });
+    </script>
+</html>

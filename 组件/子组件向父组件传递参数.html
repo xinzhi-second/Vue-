@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>子组件向父组件传递参数</title>
+    </head>
+    <body>
+        <div id="app">
+            <div :style="{fontSize: fontSize + 'px'}">{{msg}}</div>
+            <!-- 父组件监听子组件的事件 -->
+           <menu-item  @enlarge-text="handle($event)"></menu-item>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+        Vue.component('menu-item', {
+            props: ['parr'],
+            template: `
+                <div>
+                    <button @click="$emit('enlarge-text', 5)">扩大父组件中字体大小</button>
+                    <button @click="$emit('enlarge-text', 10)">扩大父组件中字体大小</button>
+                </div>
+            `
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '扩大字体',
+                fontSize: 10
+            },
+            methods: {
+                handle: function(val){
+                    this.fontSize += val;
+                }
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>props属性值类型</title>
+    </head>
+    <body>
+        <div id="app">
+            {{msg}}
+            <!-- 不是绑定类型Number数值为字符串 -->
+           <menu-item :pstr="pstr" :pnum="12" :pboo="true" :parr="parr" :pobj="pobj"></menu-item>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+        //
+        Vue.component('menu-item', {
+            props: ['pstr','pnum','pboo','parr','pobj'],
+            data: function(){
+                return {
+                    msg: '子组件本身数据'
+                }
+            },
+            template: `
+                <div>
+                    <div>{{msg}}</div>
+                    <div>{{pstr}}</div>
+                    <div>{{pnum + 1}}</div>
+                    <div>{{typeof pboo}}</div>
+                    <ul>
+                        <li :key="index" v-for="(item,index) in parr">{{item}}</li>
+                    </ul>
+                    <div>{{pobj.name}} | {{pobj.age}}</div>
+                </div>
+            `,
+            methods: {
+                handle: function(){
+                    this.count++;
+                }
+            }
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '父组件内容',
+                pstr: 'hello',
+                parr: ['apple','orange'],
+                pobj: {
+                    name: '王五',
+                    age: 12
+                }
+            }
+        });
+    </script>
+</html>

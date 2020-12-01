@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>组件命名方式</title>
+    </head>
+    <body>
+        <div id="app">
+           <buttons></buttons>
+           <hello-world></hello-world>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        // 驼峰命名（可在子组件中使用，在根组件使用需修改为短横线方式使用）
+        Vue.component('HelloWorld',{
+            data: function(){
+                return {
+                    msg: 'HelloWorld'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        });
+
+        //
+        Vue.component('buttons', {
+            data: function(){
+                return {
+                    count: 0
+                }
+            },
+            template: `
+                <div>
+                    <button @click="handle">点击了{{count}}次</button>
+                    <button>测试</button>
+                    <HelloWorld></HelloWorld>
+                </div>
+            `,
+            methods: {
+                handle: function(){
+                    this.count++;
+                }
+            }
+        });
+
+        
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello',
+            }
+        });
+    </script>
+</html>

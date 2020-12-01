@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>购物车案例1</title>
+    </head>
+    <style>
+        .cart{
+            text-align: center;
+            margin: auto;
+            width: 350px;
+            height: 400px;
+        }
+        .cart .title{
+            width: 100%;
+            height: 50px;
+            background-color:rgba(0, 183, 255, 0.425);
+            line-height: 50px;
+        }
+        .cart .list{
+            width: 100%;
+            height: 100%;
+        }
+        .cart .list table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .cart .list table th{
+            padding: 10px;
+            height: 35px;
+            line-height: 35px;
+            border-top: 1px solid rgba(0, 183, 255, 0.425);
+        }
+        .cart .list table th a{
+            font-size: 20px;
+            text-decoration: none;
+        }
+        .cart .list table th input{
+            width: 50px;
+            height: 20px;
+        }
+        .cart .list table th button{
+            width: 60px;
+            height: 30px;
+            border: 0px;
+            background-color: red;
+            color: seashell;
+
+        }
+        .cart .total{
+            width: 100%;
+            height: 50px;
+            background-color:orange;
+            line-height: 50px;
+        }
+        .cart .total button{
+            width: 60px;
+            height: 30px;
+            background-color: red;
+            border: 0px;
+            color: #fff;
+            margin-left: 10px;
+        }
+    </style>
+    <body>
+        <div id="app">
+           <my-cart></my-cart>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        
+        var CartTitle = {
+            props:['uname'],
+            template: `
+                <div class="title">{{uname}}的商品</div>
+            `
+        }
+
+        var CartList = {
+            props: ['list'],
+            template: `
+                <div class="list">
+                    <table>
+                        <tbody>
+                            <tr :key="item.id" v-for="item in list">
+                                <th>{{item.name}}</th>
+                                <th>
+                                    <a href="" @click.prevent="sub(item.id)">-</a>
+                                    <input type="text" v-bind:value="item.num" @blur="changeNum(item.id, $event)">
+                                    <a href="" @click.prevent="add(item.id)">+</a>
+                                </th>
+                                <th><button @click="del(item.id)">删除</button></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `,
+            methods: {
+                del: function(id){
+                    // 把id传递给父组件
+                    this.$emit('cart-del',id);
+                },
+                changeNum: function(id, event){
+                    var val = event.target.value;
+                    this.$emit('change-num', {
+                        id: id,
+                        num: val
+                    });
+                },
+                sub(id){
+                    this.$emit('update-num', {
+                        id: id,
+                        type: 'sub'
+                    });
+                },
+                add(id){
+                    this.$emit('update-num', {
+                        id: id,
+                        type: 'add'
+                    });
+                }
+            }
+        }
+
+        var CartTotal = {
+            props: ['list'],
+            template: `
+                <div class="total">
+                    <span>总价：{{total}}</span>
+                    <button>结算</button>
+                </div>
+            `,
+            computed: {
+                total: function(){
+                    // 计算商品总价
+                    var price = 0;
+                    this.list.forEach(item => {
+                        price += item.price * item.num;
+                    });
+                    return price;
+                }
+            }
+        }
+
+        Vue.component('my-cart', {
+            data: function(){
+                return {
+                    uname:'张三',
+                    list: [{
+                        id: 1,
+                        name: 'TCL彩电',
+                        price: 1000,
+                        num: 1
+                    },{
+                        id: 2,
+                        name: '机顶盒',
+                        price: 1000,
+                        num: 1
+                    },{
+                        id: 3,
+                        name: '海尔冰箱',
+                        price: 1000,
+                        num: 1
+                    },{
+                        id: 4,
+                        name: '小米手机',
+                        price: 1000,
+                        num: 1
+                    },{
+                        id: 5,
+                        name: 'PPTV电视',
+                        price: 1000,
+                        num: 2
+                    }]
+                }
+            },
+            template: `
+                <div class="cart">
+                    <cart-title :uname="uname"></cart-title>
+                    <cart-list :list="list" @cart-del="delCart($event)" @change-num="changeNum($event)" @update-num="updateNum($event)"></cart-list>
+                    <cart-total :list="list"></cart-total>
+                </div>
+            `,
+            components: {
+                'cart-title': CartTitle,
+                'cart-list': CartList,
+                'cart-total': CartTotal,
+            },
+            methods: {
+                delCart(id){
+                    // 删除数据
+                    var index = this.list.findIndex(item => {
+                        return item.id == id;
+                    });
+                    this.list.splice(index, 1);
+                },
+                changeNum(data){
+                    this.list.some(item => {
+                        if(item.id == data.id){
+                            item.num = data.num;
+                            return true;
+                        }
+                    });
+                },
+                updateNum(data){
+                    if(data.type === 'sub'){
+                        this.list.some(item => {
+                            if(item.id == data.id){
+                                item.num -= 1;
+                                return true;
+                            }
+                        });      
+                    }else if(data.type === 'add'){
+                        this.list.some(item => {
+                            if(item.id == data.id){
+                                item.num += 1;
+                                return true;
+                            }
+                        });
+                    }
+                    
+                }
+            }
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+            }
+        });
+
+    </script>
+</html>

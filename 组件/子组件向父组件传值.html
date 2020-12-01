@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>子组件向父组件传值</title>
+    </head>
+    <body>
+        <div id="app">
+            <div :style="{fontSize: fontSize + 'px'}">{{msg}}</div>
+            <!-- 父组件监听子组件的事件 -->
+           <menu-item :parr="parr" @enlarge-text="handle"></menu-item>
+        </div>
+    </body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+        // 子组件直接操作父组件传递的数据
+        // Vue.component('menu-item', {
+        //     props: ['parr'],
+        //     template: `
+        //         <div>
+        //             <ul>
+        //                 <li :key="index" v-for="(item,index) in parr">{{item}}</li>
+        //             </ul>
+        //             <button @click="parr.push('lemon')">点击</button>
+        //         </div>
+        //     `,
+        //     methods: {
+        //         handle: function(){
+        //             this.count++;
+        //         }
+        //     }
+        // });
+
+        Vue.component('menu-item', {
+            props: ['parr'],
+            template: `
+                <div>
+                    <ul>
+                        <li :key="index" v-for="(item,index) in parr">{{item}}</li>
+                    </ul>
+                    <!-- 子组件通过自定义事件向父组件传递低性能 -->
+                    <button @click="$emit('enlarge-text')">扩大父组件中字体大小</button>
+                </div>
+            `
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                parr: ['apple','orange'],
+                msg: '扩大字体',
+                fontSize: 10
+            },
+            methods: {
+                handle: function(){
+                    this.fontSize += 5;
+                }
+            }
+        });
+    </script>
+</html>
