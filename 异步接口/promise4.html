@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Promise4</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /**
+            then 参数中的函数返回值
+        */
+        function queryData(url){
+            return new Promise(function(resolve, reject){
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState != 4) return;
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        resolve(xhr.responseText);
+                    }else{
+                        reject('服务器错误！');
+                    }
+                }
+                xhr.open('get',url);
+                xhr.send(null);
+            });
+        }
+
+        var baseUrl = "http://localhost:8080/promise"
+
+        // 返回实例对象
+        queryData(baseUrl + '/data')
+            .then(function(data){
+                console.log(data);
+                return new Promise(function(resolve, reject){
+                    setTimeout(function(){
+                        resolve(123);
+                    }, 1000);
+                });
+            })
+            .then(function(data){
+                console.log(data);
+            });
+
+        // 返回普通值(then会默认产生一个新的Promise实例对象，从而调用下一个then，保证链式结构)
+        queryData(baseUrl + '/data')
+            .then(function(data){
+                console.log(data);
+                return 'hello';
+            })
+            .then(function(data){
+                console.log(data);
+            });
+    </script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>async-await2</title>
+    </head>
+    <body>
+    </body>
+    <script src="../js/axios/axios.js"></script>
+    <script type="text/javascript">
+        /*
+            async-await多个异步请求
+        */
+        var baseUrl = "http://localhost:8080/async";
+
+        // 默认地址
+        axios.defaults.baseURL = baseUrl;
+
+        // 
+        async function queryData(){
+            var info = await axios.get('/data1');
+            var ret = await axios.get('/data2', {
+                params: {
+                    info: info.data
+                }
+            });
+            return ret.data;
+        }
+        queryData().then(function(data){
+            console.log(data);
+        });
+    </script>
+</html>

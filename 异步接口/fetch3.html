@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fetch3</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /*
+            fetchAPI 调用接口传递参数
+        */
+        var baseUrl = "http://localhost:8080/fetch";
+
+        // Restful 传递参数
+        fetch(baseUrl + '/books/789', {
+            method: 'delete',
+        }).then(function(data){
+            return data.text();
+        }).then(function(data){
+            console.log(data);
+        });
+    </script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Promise5</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /**
+            Promise 常用API-实例方法
+        */
+        function fun(url){
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    // 成功
+                    // resolve("success");
+
+                    // 异常
+                    reject("error");
+                }, 100);
+            });
+        }
+
+        /*
+            两种写法等效
+        */
+        // 写法一
+        fun()
+            .then(function(data){
+                // 接受resolve传递的信息
+                console.log(data);
+            })
+            .catch(function(data){
+                // 接收reject传递的信息
+                console.log(data);
+            })
+            .finally(function(){
+                console.log("finally");
+            });
+
+        // 写法二
+        fun()
+            .then(function(data){
+                // 接受resolve传递的信息
+                console.log(data);
+            }, function(data){
+                // 接收reject传递的信息
+                console.log(data);
+            })
+            .finally(function(){
+                console.log("finally");
+            });
+    </script>
+</html>

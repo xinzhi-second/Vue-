@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>axios5</title>
+    </head>
+    <body>
+    </body>
+    <script src="../js/axios/axios.js"></script>
+    <script type="text/javascript">
+        /*
+            axios put参数传递
+        */
+        var baseUrl = "http://localhost:8080/axios";
+
+        // 普通传参
+        axios.put(baseUrl + '/dataParamJson', {
+            name: 'lisi',
+            pwd: 123
+        }).then(function(result){
+            console.log(result.data);
+        });
+
+        // 通过URLSearchParams传参
+        var params = new URLSearchParams();
+        params.append('name','wangwu');
+        params.append('pwd',345);
+        axios.put(baseUrl + '/dataParam', params)
+             .then(function(result){
+                 console.log(result.data);
+             });
+        
+    </script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Promise6</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /**
+            Promise 常用API-对象方法
+        */
+        function queryData(url){
+            return new Promise(function(resolve, reject){
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState != 4) return;
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        resolve(xhr.responseText);
+                    }else{
+                        reject('服务器错误！');
+                    }
+                }
+                xhr.open('get',url);
+                xhr.send(null);
+            });
+        }
+
+        var baseUrl = "http://localhost:8080/promise"
+        
+        var p1 = queryData(baseUrl + '/data');
+        var p2 = queryData(baseUrl + '/data1');
+        var p3 = queryData(baseUrl + '/data2');
+
+        // Promise.all()
+        Promise.all([p1, p2, p3]).then(function(data){
+            console.log("==all==",  data);
+        });
+
+        // Promise.race()
+        Promise.race([p1, p2, p3]).then(function(data){
+            console.log("==race==", data);
+        });
+    </script>
+</html>

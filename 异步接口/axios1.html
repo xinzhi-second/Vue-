@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>axios1</title>
+    </head>
+    <body>
+    </body>
+    <script src="../js/axios/axios.js"></script>
+    <script type="text/javascript">
+        /*
+            axios
+        */
+        var baseUrl = "http://localhost:8080/axios";
+
+        axios.get(baseUrl + '/data').then(function(result){
+            console.log(result);
+            // data属性是固定用法，用于获取后台实际数据
+            console.log(result.data);
+        });
+        
+    </script>
+</html>

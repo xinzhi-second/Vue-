@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fetch响应结果</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /*
+            fetchAPI 响应结果
+        */
+        var baseUrl = "http://localhost:8080/fetch";
+
+        // Restful 传递参数
+
+        // json：进行数据转换，将json字符串转换为json对象
+        fetch(baseUrl + '/json').then(function(data){
+            return data.json();
+        }).then(function(data){
+            console.log(data);
+        });
+
+        // text：不进行数据转换直接返回字符串
+        fetch(baseUrl + '/json').then(function(data){
+            return data.text();
+        }).then(function(data){
+            console.log(data);
+        });
+    </script>
+</html>

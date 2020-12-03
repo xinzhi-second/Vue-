@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>async-await</title>
+    </head>
+    <body>
+    </body>
+    <script src="../js/axios/axios.js"></script>
+    <script type="text/javascript">
+        /*
+            async-await
+        */
+        var baseUrl = "http://localhost:8080/axios";
+
+        // 默认地址
+        axios.defaults.baseURL = baseUrl;
+
+        // axios用法
+        // async function queryData(){
+        //     var ret = await axios.get('/dataJson');
+        //     return ret.data;
+        // }
+        // queryData().then(function(data){
+        //     console.log(data);
+        // });
+
+        // Promise用法
+        async function queryData(){
+            var ret = await new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    resolve("Hello!");
+                },100);
+            });
+
+            return ret;
+        }
+        queryData().then(function(data){
+            console.log(data);
+        });
+    </script>
+</html>

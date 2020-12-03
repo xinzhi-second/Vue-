@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>axios7</title>
+    </head>
+    <body>
+    </body>
+    <script src="../js/axios/axios.js"></script>
+    <script type="text/javascript">
+        /*
+            axios 拦截器
+        */
+        var baseUrl = "http://localhost:8080/axios";
+
+        // 默认地址
+        axios.defaults.baseURL = baseUrl;
+
+        // 请求拦截器
+        axios.interceptors.request.use(function(config){
+            console.log(config);
+            console.log(config.baseURL + config.url);
+            config.headers.token = 'mytoke';
+            return config;
+        },function(err){
+            console.log(err);
+        });
+
+        // 响应拦截器
+        axios.interceptors.response.use(function(res){
+            console.log(res);
+            return res.data;
+        },function(err){
+            console.log(err);
+        });
+
+        axios.get('/dataJson').then(function(result){
+            console.log(result);
+        });
+        
+    </script>
+</html>

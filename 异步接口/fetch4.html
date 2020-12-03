@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fetch4</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /*
+            fetchAPI 调用接口传递参数
+        */
+        var baseUrl = "http://localhost:8080/fetch";
+
+        // Restful 传递参数
+
+        // 方法一：form
+        fetch(baseUrl + '/books', {
+            method: 'post',
+            body: 'uname=lisi&pwd=123',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data){
+            return data.text();
+        }).then(function(data){
+            console.log(data);
+        });
+
+        // 方法二： json
+        fetch(baseUrl + '/booksJson', {
+            method: 'post',
+            body: JSON.stringify({
+                uname: '张三',
+                pwd: '456'
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(data){
+            return data.text();
+        }).then(function(data){
+            console.log(data);
+        });
+    </script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>axios2</title>
+    </head>
+    <body>
+    </body>
+    <script src="../js/axios/axios.js"></script>
+    <script type="text/javascript">
+        /*
+            axios get参数传递
+        */
+        var baseUrl = "http://localhost:8080/axios";
+
+        // url传参
+        axios.get(baseUrl + '/dataParam?id=123').then(function(result){
+            console.log(result.data);
+        });
+
+        // restful url 传参
+        axios.get(baseUrl + '/dataParam/456').then(function(result){
+            console.log(result.data);
+        });
+
+        // params属性传参
+        axios.get(baseUrl + '/dataParam', {
+            params: {
+                id: '789'
+            }
+        }).then(function(result){
+            console.log(result.data);
+        });
+        
+    </script>
+</html>

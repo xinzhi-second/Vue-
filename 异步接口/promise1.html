@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Promise1</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        var p = new Promise(function(resolve, reject){
+            // 这里执行异步任务
+            setTimeout(function(){
+                var flag = true;
+                if (flag){
+                    // 成功
+                    resolve("ok");
+                }else{
+                    // 失败
+                    reject("error");
+                }
+            });
+        });
+
+        // 获取请求结果
+        p.then(function(data){
+            // 成功信息
+            console.log(data);
+        },function(data){
+            // 失败信息
+            console.log(data);
+        });
+    </script>
+</html>

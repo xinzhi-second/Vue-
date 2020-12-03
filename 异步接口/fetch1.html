@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fetch1</title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+        /*
+            fetchAPI 基本用法
+        */
+        var baseUrl = "http://localhost:8080/fetch";
+
+        fetch(baseUrl + '/data').then(function(data){
+            // text() 方法属于fetchAPI的一部分，它返回一个Promise实例对象，用于获取后台返回的数据
+            return data.text();
+        }).then(function(data){
+            console.log(data);
+        });
+    </script>
+</html>
