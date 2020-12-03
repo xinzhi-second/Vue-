@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>实现简单前端路由</title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 切换组件的超链接 -->
+            <a href="#/zhuye">主页</a>
+            <a href="#/keji">科技</a>
+            <a href="#/caijing">财经</a>
+            <a href="#/yule">娱乐</a>
+
+            <!-- 根据 :is属性指定的组件名称，把对应的组件渲染到 component 标签所在的位置 -->
+            <!-- 可以把 component 标签当作是【组件的占位符】 -->
+            <component :is="comName"></component>
+
+        </div>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript">
+
+        const zhuye = {
+            template: '<h1>主页信息</h1>'
+        }
+
+        const keji = {
+            template: '<h1>科技信息</h1>'
+        }
+
+        const caijing = {
+            template: '<h1>财经信息</h1>'
+        }
+
+        const yule = {
+            template: '<h1>娱乐信息</h1>'
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                comName: 'zhuye'
+            },
+            components: {
+                zhuye,
+                keji,
+                caijing,
+                yule
+            }
+        });
+
+        // 监听 window 的 onhashchange 事件，根据获取到的hash值，切换要显示的组件的名称
+        window.onhashchange = function(){
+            // 通过 location.hash 获取到最新的hash值
+            console.log(location.hash);
+            var hash = location.hash;
+            // 去除[#/]
+            vm.comName = hash.slice(2);
+        }
+    </script>
+</html>

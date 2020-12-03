@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>命名路由/title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- router-link 是 vue 中提供的标签，默认会被渲染为 a 标签 -->
+            <!-- to 属性默认会被渲染为 href 属性 -->
+            <!-- to 属性的值默认会被渲染为 # 开头的hash地址 -->
+            <router-link to="/user/1" >User1</router-link>
+            <router-link to="/user/2" >User2</router-link>
+            <router-link :to="{name: 'user', params: {id: 3}}" >User3</router-link>
+            <router-link to="/register" >Register</router-link>
+
+            <!-- 路由填充位 (也叫做路由占位符)-->
+            <!-- 将来通过路由规则匹配到的组件，将会被渲染到 router-view 所在的位置 -->
+            <router-view></router-view>
+        </div>
+    </body>
+    <!--导入Vue文件，为全局 window 对象挂载 Vue 构造函数  -->
+    <script src="../js/vue.js"></script>
+    <!-- 导入 vue-router 文件，为全局 window 对象挂载 VueRouter 构造函数 -->
+    <script src="../js/vue-router.js"></script>
+    <script type="text/javascript">
+
+       var User = {
+            props: ['name','age','id'],  // 使用props接收路由参数
+	        template: `<div>User :{{name + '---------' + age + '-----' + id}}</div>`  // 使用路由参数
+       }
+
+       var Register = {
+           template: '<div>Register</div>'
+       }
+
+       // 创建路由实例对象
+       var router = new VueRouter({
+           // routes 是路由规则数组
+           routes: [
+               {path: '/', redirect: '/user/1'},
+               {
+                   name: 'user',
+                   path: '/user/:id', 
+                   component: User, 
+                   props: route => ({name: 'zs', age: 20, id: route.params.id})
+               },
+               {path: '/register', component: Register}
+           ]
+       });
+
+        const vm = new Vue({
+            el: '#app',
+            // 挂载路由实例对象
+		    // router: router
+            router
+        });
+
+        
+    </script>
+</html>
