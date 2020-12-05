@@ -1,0 +1,15 @@
+li {
+    list-style: none;
+    
+}
+
+::placeholder{
+    color: red;
+}
+
+.box {
+    width: 500px;
+    height: 500px;
+    background-color: pink;
+    background: url('../imgae/130.jpg');
+}
