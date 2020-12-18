@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './plugins/element.js'
+import './plugins/vue_table_with_tree_grid.js'
 
 // 导入字体图标
 import './assets/fonts/iconfont.css'
