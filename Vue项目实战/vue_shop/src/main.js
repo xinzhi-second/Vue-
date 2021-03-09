@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './plugins/element.js'
 import './plugins/vue_table_with_tree_grid.js'
+import './plugins/vue_quill_editor.js'
 
 // 导入字体图标
 import './assets/fonts/iconfont.css'
@@ -26,6 +27,20 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
+
+// 全局过滤器
+Vue.filter('dataFormat', function(originVal) {
+    const dt = new Date(originVal)
+    const y = dt.getFullYear()
+    const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+    const d = (dt.getDate() + '').padStart(2, '0')
+
+    const hh = (dt.getHours() + '').padStart(2, '0')
+    const mm = (dt.getMinutes() + '').padStart(2, '0')
+    const ss = (dt.getSeconds() + '').padStart(2, '0')
+
+    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
 
 new Vue({
     router,
